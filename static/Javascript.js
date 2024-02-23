@@ -87,3 +87,7 @@ GrowwProduct_FDsDetails.addEventListener("click",()=>{
 
 })
 /************************************************************************************** */
+
+// Your new code to open terminal.html
+document.getElementById("terminalButton").addEventListener("click", function() {
+    window.location.href = "terminal.html";});
