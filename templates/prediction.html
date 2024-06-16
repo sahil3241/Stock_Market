@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Predictions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+        .ticker {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .prediction {
+            font-size: 20px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-size: 18px;
+        }
+        td {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Predictions</h1>
+        <div id="predictions">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Open</th>
+                        <th>High</th>
+                        <th>Low</th>
+                        <th>Close</th>
+                        <th>Adj Close</th>
+                        <th>Volume</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be populated dynamically with JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function updatePredictions() {
+            // Fetch predictions from the server
+            fetch('/predictions')
+                .then(response => response.json())
+                .then(data => {
+                    const predictionsTableBody = document.querySelector('#predictions table tbody');
+                    predictionsTableBody.innerHTML = '';  // Clear previous table rows
+                    // Iterate over received data
+                    for (const [ticker, prediction] of Object.entries(data)) {
+                        const [open, high, low, close, adjClose, volume] = prediction;
+                        // Create a table row
+                        const row = document.createElement('tr');
+                        // Fill in cells
+                        row.innerHTML = `
+                            <td class="ticker">${ticker}</td>
+                            <td>${open}</td>
+                            <td>${high}</td>
+                            <td>${low}</td>
+                            <td>${close}</td>
+                            <td>${adjClose}</td>
+                            <td>${volume}</td>
+                        `;
+                        // Append row to table body
+                        predictionsTableBody.appendChild(row);
+                    }
+                })
+                .catch(error => console.error('Error fetching predictions:', error));
+        }
+
+        // Update predictions every second
+        setInterval(updatePredictions, 1000);
+
+        // Initial fetch
+        updatePredictions();
+    </script>
+</body>
+</html>

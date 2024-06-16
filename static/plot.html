@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-Time Plot</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="hoverEffect.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./LoginAndRegister/LoginAndRegisterStyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/6eb066ffa6.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var currentTicker = ''; // Variable to store the current ticker
+
+        // Function to fetch plot content based on selected ticker
+        function fetchPlot(ticker) {
+            $.get(`/plot/${ticker}`, function(data) {
+                $("#plot").html(data); // Update plot content
+            });
+        }
+
+        // Function to handle toggle button click event
+        function toggleTicker(ticker) {
+            currentTicker = ticker; // Set the current ticker
+            fetchPlot(ticker); // Fetch plot content based on selected ticker
+            $("#plot").data("current-ticker", ticker); // Store the current ticker in the data attribute
+        }
+
+        // Fetch plot content initially for default ticker and every 6 seconds
+        $(document).ready(function() {
+            $("#plot").html(""); // Initially set plot container to empty
+            setInterval(function() {
+                if (currentTicker) {
+                    fetchPlot(currentTicker);
+                }
+            }, 1000); // Fetch every 1 second
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar" style="padding-bottom: 0px; padding-top: 0px;">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="width: 66%; padding-right: 6px;">
+            <div class="container-fluid" style="background-color: white; padding-left: 0px; padding-right: 0px;">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item" style="width: 100px;">
+                            <a class="nav-link active" aria-current="page" href="#"><button onclick="toggleTicker('RELIANCE.NS')">Reliance</button></a>
+                        </li>
+                        <li class="nav-item" style="width: 130px;">
+                            <a class="nav-link active" aria-current="page" href="#"><button onclick="toggleTicker('TATAMOTORS.NS')">Tata Motors</button></a>
+                        </li>
+                        <li class="nav-item" style="width: 110px;">
+                            <a class="nav-link active" aria-current="page" href="#"><button onclick="toggleTicker('MSFT')">Microsoft</button></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#"><button onclick="toggleTicker('AAPL')">Apple</button></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-gear"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-camera"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-expand"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="main" style="height: 80vh; display: flex;">
+        <div class="sidebar" style="flex: 0 0 34px;">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary" style=" padding-top: 0rem; margin-top: 0rem; position: relative;">
+                <div class="container-fluid" style="background-color: white; padding-left: 0px;">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-crosshairs"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-lines-leaning"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-grip-lines"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-paintbrush"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-t"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-draw-polygon"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-regular fa-heart"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-ruler"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-magnifying-glass-plus"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-magnet"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-pencil"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-unlock"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-eye"></i></a>
+                                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-trash"></i></a>
+                            </li>
+                        </ul>
+                        <div id="plot" data-current-ticker="" style="flex-grow: 1; position: relative;"></div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../static/Javascript.js"></script>
+    <script src="./LoginAndRegister/loginAndRegister.js"></script>
+</body>
+</html>
