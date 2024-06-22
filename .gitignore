@@ -1,3 +1,8 @@
 myenv
 .env
 .env.*
+
+AAPL_data.csv
+MSFT_data.csv
+RELIANCE.NS_data.csv
+TATAMOTORS.NS_data.csv

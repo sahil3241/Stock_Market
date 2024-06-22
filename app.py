@@ -6,8 +6,9 @@ import threading
 import os
 from filelock import FileLock
 from sklearn.preprocessing import MinMaxScaler
-from keras.models import Sequential, load_model
-from keras.layers import LSTM, Dense
+from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.layers import LSTM, Dense
+
 from flask import Flask, jsonify, send_from_directory
 
 app = Flask(__name__)
@@ -63,13 +64,13 @@ def fetch_and_append_data(ticker, csv_file):
                 
             else:
                 print(f"Error: Failed to fetch data for {ticker}")
-                time.sleep(300)  # Wait for 5 minutes before trying again
+                time.sleep(290)  # Wait for 5 minutes before trying again
                 continue
         except Exception as e:
             print(f"Error fetching data for {ticker}: {e}")
             time.sleep(10)  # Wait for 10 seconds before trying again
             continue
-        time.sleep(300)  # Wait for 5 minutes before fetching data again
+        time.sleep(290)  # Wait for 5 minutes before fetching data again
 
 @app.route('/predictions')
 def get_predictions():
@@ -81,7 +82,7 @@ def serve_predictions_page():
     
 
 def start_flask_app():
-    app.run(debug=True, use_reloader=False, port=5001)
+    app.run(debug=True, use_reloader=False,host='0.0.0.0' ,port=5001)
 
 # Function to clear the contents of the CSV file
 def clear_csv_file(csv_file):

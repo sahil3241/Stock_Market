@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore", category=UserWarning, module="mpld3")
 app = Flask(__name__)
 
 def fetch_prediction_page():
-    app_py_url = 'http://127.0.0.1:5001/prediction'  # Change to app.py's URL
+    app_py_url = 'http://app:5001/prediction'  # Change to app.py's URL
     response = requests.get(app_py_url)
     return response.content  # Return the content of the prediction.html file
 
@@ -56,7 +56,7 @@ def stream():
     return Response(event_stream(), content_type='text/event-stream')
 
 def start_flask_app():
-    app.run(debug=True, use_reloader=False, port=5002)
+    app.run(debug=True, use_reloader=False,host='0.0.0.0' ,port=5002)
 
 # Function to fetch data from Yahoo Finance for a single stock
 def fetch_data(ticker):
