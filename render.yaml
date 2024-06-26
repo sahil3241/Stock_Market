@@ -8,9 +8,7 @@ services:
       - key: PORT
         value: 5001 # The port app.py runs on
     routes:
-      - name: app-service-route
-        path: /app/*
-        service: app-service
+      - path: /app/*
 
   - type: web
     name: gui-service
@@ -21,6 +19,4 @@ services:
       - key: PORT
         value: 5000 # The port gui.py runs on
     routes:
-      - name: gui-service-route
-        path: /gui/*
-        service: gui-service
+      - path: /gui/*
