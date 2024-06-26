@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Trading </title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/hoverEffect.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./LoginAndRegister/LoginAndRegisterStyle.css">
+</head>
+<body id="IndexBody">
+    <div class="Groww_Top">
+        <div class="Groww_searchContainer">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="What are you looking for today?">
+        </div>
+
+        <div class="Groww_LoginRegister">
+            <button onclick="window.location.href = '/plot';">Terminal</button>
+        </div>
+        
+    </div>
+
+    <!--Middle part-->
+    <div class="middle_part" style="justify-content: center; position: relative; top: 10rem">
+        <div>
+            <h2 class="Options">
+                Options available
+                <div class="Slidder_vertical">
+                    <span class="Stocks_Color">Stocks Analysis</span>
+                    <span class="MutualFunds_Color">Stock Predictor</span>
+                    
+                </div>
+            </h2>
+
+            <div class="Grow_Middle_Left_Text">
+                Trusted by <span style="font-weight:bold">Millions</span> of Indians. Start investing today.
+            </div>
+            
+
+        </div>
+
+        <div class="Grow_Middle_Right">
+
+                <div class="Grow_middle_col2">
+                    <a class="mutualFunds" href="http://127.0.0.1:5001/prediction" target="_blank">
+                        <img src="../static/images/ImageIcon/MutualFunds.svg" width="49px" height="49px">
+                        <h3>Stock Predictor</h3>
+                    </a>
+        
+                    <a class="Stocks" href="/plot">
+                        <img src="../static/images/ImageIcon/Stocks.svg" width="49px" height="49px">
+                        <h3>Stocks Analysis</h3>
+                    </a>
+                </div>
+        </div>
+
+    </div>
+
+
+    <script src="../static/Javascript.js"></script>
+    <script src="./LoginAndRegister/loginAndRegister.js"></script>
+</body>
+</html>
