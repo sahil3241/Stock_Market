@@ -20,7 +20,7 @@ def home():
     return send_from_directory('templates', 'home.html')
 
 def fetch_prediction_page():
-    app_py_url = 'http://app:5001/prediction'  # Change to app.py's URL
+    app_py_url = 'https://app-service-6i3v.onrender.com/prediction'  # Change to app.py's URL
     response = requests.get(app_py_url)
     return response.content  # Return the content of the prediction.html file
 
