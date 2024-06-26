@@ -6,9 +6,7 @@ services:
     autoDeploy: true
     envVars:
       - key: PORT
-        value: 5001 # The port app.py runs on
-    routes:
-      - pathPrefix: /app
+        value: 5001
 
   - type: web
     name: gui-service
@@ -17,6 +15,4 @@ services:
     autoDeploy: true
     envVars:
       - key: PORT
-        value: 5000 # The port gui.py runs on
-    routes:
-      - pathPrefix: /gui
+        value: 5000
