@@ -4,7 +4,7 @@ import mpld3
 import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use('Agg')
-from flask import Flask, send_file, Response, send_from_directory
+from flask import Flask, send_file, Response, send_from_directory, render_template_string
 import os
 import time
 import warnings
@@ -22,7 +22,10 @@ def home():
 def fetch_prediction_page():
     app_py_url = 'https://app-service-6i3v.onrender.com/prediction'  # Change to app.py's URL
     response = requests.get(app_py_url)
-    return response.content  # Return the content of the prediction.html file
+    if response.status_code == 200:
+        return response.content  # Return the content of the prediction.html file
+    else:
+        return "Error fetching prediction page"
 
 # Function to fetch data from Yahoo Finance for a single stock
 def fetch_data(ticker):
@@ -89,7 +92,7 @@ def continuous_plot_updates():
 @app.route('/prediction')
 def serve_predictions_page():
     prediction_html_content = fetch_prediction_page()
-    return prediction_html_content
+    return render_template_string(prediction_html_content)
 
 @app.route('/plot')
 def home2():

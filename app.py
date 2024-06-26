@@ -64,13 +64,13 @@ def fetch_and_append_data(ticker, csv_file):
                 
             else:
                 print(f"Error: Failed to fetch data for {ticker}")
-                time.sleep(290)  # Wait for 5 minutes before trying again
+                time.sleep(120)  # Wait for 5 minutes before trying again
                 continue
         except Exception as e:
             print(f"Error fetching data for {ticker}: {e}")
             time.sleep(10)  # Wait for 10 seconds before trying again
             continue
-        time.sleep(290)  # Wait for 5 minutes before fetching data again
+        time.sleep(120)  # Wait for 5 minutes before fetching data again
 
 @app.route('/predictions')
 def get_predictions():
@@ -103,7 +103,7 @@ def clear_csv_files_periodically():
         for ticker in tickers:
             csv_file = f"{ticker}_data.csv"
             clear_csv_file(csv_file)
-        time.sleep(3600)  # Sleep for 1 hour (3600 seconds)
+        time.sleep(180)  
 
 # Function to preprocess data for LSTM model
 def preprocess_data(data):
