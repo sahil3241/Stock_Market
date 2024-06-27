@@ -16,6 +16,7 @@ warnings.filterwarnings("ignore", category=UserWarning, module="mpld3")
 
 # Flask application
 app = Flask(__name__)
+
 @app.route('/')
 def home():
     return send_from_directory('templates', 'home.html')
@@ -85,11 +86,9 @@ async def continuous_plot_updates():
     while True:
         tasks = [update_and_convert_plot(ticker) for ticker in ["RELIANCE.NS", "TATAMOTORS.NS", "MSFT", "AAPL"]]
         await asyncio.gather(*tasks)
-        await asyncio.sleep(5) 
+        await asyncio.sleep(5)
 
 # Flask routes
-
-
 @app.route('/prediction')
 def serve_predictions_page():
     prediction_html_content = fetch_prediction_page()
@@ -120,17 +119,16 @@ def stream():
                         yield f"data: {file.read()}\n\n"
     return Response(event_stream(), content_type='text/event-stream')
 
-# Function to start plot updates for all tickers
-def start_plot_updates():
-    for ticker in ["RELIANCE.NS", "TATAMOTORS.NS", "MSFT", "AAPL"]:
-        # Update plot for the ticker
-        update_and_convert_plot(ticker)
-
 def run_asyncio_loop():
     asyncio.run(continuous_plot_updates())
+
+def run_flask():
+    app.run(debug=True, use_reloader=False, host='0.0.0.0')
 
 # Start the Flask application and initiate plot updates
 if __name__ == '__main__':
     update_thread = threading.Thread(target=run_asyncio_loop)
     update_thread.start()
-    app.run(debug=True, use_reloader=False, host='0.0.0.0')
+
+    # Ensure Flask runs in the main thread
+    run_flask()
