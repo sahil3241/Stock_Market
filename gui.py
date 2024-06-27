@@ -84,7 +84,7 @@ def continuous_plot_updates():
     while True:
         for ticker in ["RELIANCE.NS", "TATAMOTORS.NS", "MSFT", "AAPL"]:
             update_and_convert_plot(ticker)
-        time.sleep(1)  
+        time.sleep(10)  
 
 # Flask routes
 

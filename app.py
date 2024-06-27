@@ -134,7 +134,7 @@ def create_lstm_model(input_shape):
 # Function to train the LSTM model
 def train_lstm_model(ticker, csv_file):
     while True:
-        time.sleep(300)  # Sleep for 5 minutes
+        time.sleep(150)  # Sleep for 5 minutes
         try:
             with FileLock(csv_file + ".lock"):
                 if os.path.exists(csv_file):
@@ -161,7 +161,7 @@ def train_lstm_model(ticker, csv_file):
 # Function to predict the stock price for the next 5 minutes
 def predict_stock_price(ticker, csv_file):
     while True:
-        time.sleep(300)  # Sleep for 5 minutes
+        time.sleep(150)  # Sleep for 5 minutes
         try:
             with FileLock(csv_file + ".lock"):
                 if os.path.exists(csv_file):
