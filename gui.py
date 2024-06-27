@@ -10,6 +10,7 @@ import time
 import warnings
 import requests
 import threading
+import asyncio
 
 warnings.filterwarnings("ignore", category=UserWarning, module="mpld3")
 
@@ -65,7 +66,7 @@ def plot_data(ticker, data):
     return html_fig
 
 # Function to update plot and convert it to HTML
-def update_and_convert_plot(ticker):
+async def update_and_convert_plot(ticker):
     # Fetch data
     stock_data = fetch_data(ticker)
     # Check if data is None
@@ -80,11 +81,11 @@ def update_and_convert_plot(ticker):
     print(f"Plot for {ticker} updated.")
     return file_path
 
-def continuous_plot_updates():
+async def continuous_plot_updates():
     while True:
-        for ticker in ["RELIANCE.NS", "TATAMOTORS.NS", "MSFT", "AAPL"]:
-            update_and_convert_plot(ticker)
-        time.sleep(10)  
+        tasks = [update_and_convert_plot(ticker) for ticker in ["RELIANCE.NS", "TATAMOTORS.NS", "MSFT", "AAPL"]]
+        await asyncio.gather(*tasks)
+        await asyncio.sleep(5) 
 
 # Flask routes
 
@@ -125,8 +126,11 @@ def start_plot_updates():
         # Update plot for the ticker
         update_and_convert_plot(ticker)
 
+def run_asyncio_loop():
+    asyncio.run(continuous_plot_updates())
+
 # Start the Flask application and initiate plot updates
 if __name__ == '__main__':
-    update_thread = threading.Thread(target=continuous_plot_updates)
+    update_thread = threading.Thread(target=run_asyncio_loop)
     update_thread.start()
     app.run(debug=True, use_reloader=False, host='0.0.0.0')
