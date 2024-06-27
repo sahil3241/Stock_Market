@@ -30,8 +30,20 @@ def fetch_prediction_page():
         return "Error fetching prediction page"
 
 # Function to fetch data from Yahoo Finance for a single stock
+# Function to fetch data from Yahoo Finance for a single stock
 def fetch_data(ticker):
-    return yf.download(ticker, period="1d", interval="1m")
+    try:
+        # Fetch the data from Yahoo Finance
+        data = yf.download(ticker, period="1d", interval="1m")
+        
+        # Log the head of the fetched data for debugging
+        print(f"Data fetched for {ticker}:")
+        
+        return data
+    except Exception as e:
+        print(f"Error fetching data for {ticker}: {e}")
+        return None
+
 
 # Function to plot data for a single stock with indicators
 def plot_data(ticker, data):
